@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+.single-input{
+    width: 100%;
+    margin: auto;
+    margin-bottom: 4.3%;
+    font-family: 'Montserrat', sans-serif;
+    position:relative;
+    display: flex;
+    align-items: center;
+    outline: 0;
+    background-color: white;
+    border-radius: 10px;
+    border: none;
+    padding: 0.5%;
+}
+
+.single-input label{
+    font-size: 1vw;
+    position: absolute;
+    left: 2%;
+    top: 11%;
+    cursor: text;
+    transition: 0.5s ease-in-out;
+    color:#7e7e7e;
+}
+
+.single-input input{
+    font-family: 'Montserrat', sans-serif;
+    width: 100%;
+    padding: 1%;
+    border: none;
+    outline: 0;
+    border-radius: 10px;
+    font-size: 1.08vw;
+    color:#7e7e7e;
+}
+
+.single-input .input:focus,
+.single-input .input:valid{
+    border: solid 1px #c0c0c0;
+}
+
+.single-input input:focus ~ label,
+.single-input input:valid ~ label{
+    transform: translateY(-1.5vw);
+    font-size: 0.95vw;
+    color: #04D939;
+    left: 1.6%;
+}
+
+/*Remove mascara campo data*/
+
+input[type=date]::-webkit-datetime-edit{ 
+    color: transparent; 
+}
+
+input[type=date]:valid::-webkit-datetime-edit{ 
+    color: #000; 
+}
+
+input[type=date]:focus::-webkit-datetime-edit{ 
+    color: #000;
+}
+
+input[type=date]{
+    color: #000;
+    font-size: 1.08vw;
+}
+
+input[type=date]:valid{ 
+    color: #000; 
+}
+
+input[type=date]:focus{
+    color: #000;
+}
