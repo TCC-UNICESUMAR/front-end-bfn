@@ -6,28 +6,71 @@ body{
   padding: 0;
 }
 
-h1{
-  color: #025939;
-  font-size: 2.5vw;
-  margin-bottom: 0;
-  text-align: center;
-  margin-top: 1%;
-}
-
-h3{
-  color: #025939;
-  font-size: 2.0vw;
-  font-weight: 400;
-  margin-top: 0;
-  text-align: center;
-  margin-bottom: 1%;
-}
-
-form{
-  background-color: #D9D9D9;
+.User_register_cad{
   width: 40%;
   margin: auto;
   padding: 3%;
   border-radius: 10px;
-  margin-bottom: 3%;
+}
+
+.back-user-register{
+  background-color: #D9D9D9;
+}
+
+/*INPUT*/
+.input_register_cad{
+  width: 100%;
+  margin: auto;
+  margin-bottom: 1%;
+  font-family: 'Montserrat', sans-serif;
+  position:relative;
+  display: flex;
+  align-items: center;
+  outline: 0;
+  border-radius: 10px;
+  border: none;
+  padding: 0.5%;
+}
+
+.input_register_cad input{
+  font-family: 'Montserrat', sans-serif;
+  width: 100%;
+  padding: 2.5%;
+  border: none;
+  outline: 0;
+  border-radius: 10px;
+  font-size: 1.1vw;
+  color:#bbbbbb;
+}
+
+.input_register_cad input::placeholder{
+  font-size: 1vw;
+  color: #025939;
+}
+
+/*Remove mascara campo data*/
+
+input[type=date]::-webkit-datetime-edit{ 
+  color: transparent; 
+}
+
+input[type=date]:valid::-webkit-datetime-edit{ 
+  color: #000; 
+}
+
+input[type=date]:focus::-webkit-datetime-edit{ 
+  color: #000;
+}
+
+input[type=date]{
+  color: #000;
+  font-size: 1.08vw;
+}
+
+input[type=date]:valid{ 
+  color: #000; 
+}
+
+input[type=date]:focus{
+  color: #000;
 }
