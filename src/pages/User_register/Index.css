@@ -4,7 +4,6 @@ body{
   font-family: 'Montserrat', sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #D9D9D9;
 }
 
 .User_register_cad{
@@ -12,7 +11,10 @@ body{
   margin: auto;
   padding: 3%;
   border-radius: 10px;
-  margin-bottom: 3%;
+}
+
+.back-user-register{
+  background-color: #D9D9D9;
 }
 
 /*INPUT*/

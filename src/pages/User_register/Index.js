@@ -1,78 +1,128 @@
-import { useForm } from "react-hook-form";
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as Yup from "yup";
+import { useState } from 'react';
 
 import Header from '../../components/Header/Main_header/Index';
 import './Index.css';
 import Second_header from "../../components/Header/Second_header/Index";
 import Button from "../../components/Forms/Button/Index";
+import { insertMaskPhone } from "../../components/Mask/Mask_phone/Index";
+import { insertMaskCpfCnpj } from '../../components/Mask/Mask_cpf_cnpj/Index';
+import { insertMaskCep } from '../../components/Mask/Mask_cep/Index';
 
-//Validação de campos
-const schema = Yup.object().shape({
-      name: Yup.string().required('Campo obirgatório'),
-      cpf_cnpj: Yup.string().required('Campo obrigatório'),
-     /* cep: Yup.string().required(),
-      telephone: Yup.string().required(),
-      email: Yup.string().required(),
-      password: Yup.string().min(7, 'A senha precisa ter no mínimo 7 caractreres')
-      .required('Campo obrigatório'),
-      password_confirm: Yup.string()
-      .oneOf([Yup.ref('password'), null],
-      'As senhas precisam ser iguais')
-      .required('Campo obrigatório') */
-});
 
 function User_register() {
+  const [name, setName] = useState('');
+  const [cpf_cnpj, setCpfCpnj] = useState('');
+  const [telephone, setTelephone] = useState('');
+  const [cep, setCep] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [password_confirm, setPasswordConfirm] = useState('');
+  const accessToken = localStorage.getItem('accessToken');
 
-  const { register, handleSubmit, formState: {errors, isSubmitting} } = useForm({
-      mode: 'onSubmit',
-      resovler: yupResolver(schema),
-      /*defaultValues: {
-        name: '',
-        cpf_cnpj: '',
-        cep: '',
-        telephone : '',
-        email: '',
-        password: '',
-        password_confirm: ''
-      }*/
-  });
+  async function new_user(e) {
 
-  console.log('erros:', errors);  
-  
-  const handleSubmitData = async (data) => {
-    console.log('submit', data);
+    e.preventDefault();
+
+    const data = {
+      name,
+      cpf_cnpj,
+      telephone,
+      cep,
+      email,
+      password,
+      password_confirm
+    };
+
+    console.log(data)
+
+    // try {
+    //     await api.post("doacoes", data, {
+    //         headers: {
+    //             Authorization: `Bearer ${accessToken}`
+    //         }
+    //     })
+
+    //     history.push("/doacoes");
+
+    // } catch (err) {
+    //     alert('Prencha todos os campos corretamente!!!');
+    // }
+
   }
 
   return (
     <div>
       <Header />
-      <Second_header  
-        title={"CADASTRO"} 
-        sub_title={"INICIE UMA NOVA HISTÓRIA"} 
+      <Second_header
+        title={"CADASTRO"}
+        sub_title={"INICIE UMA NOVA HISTÓRIA"}
       />
-      <form className="User_register_cad" onSubmit={handleSubmit(handleSubmitData)}>
-        <div className="input_register_cad">
+      <div className="back-user-register">
+        <form className="User_register_cad" onSubmit={new_user}>
+          <div className="input_register_cad">
             <input
-              {...register('name')}
-              name='name'
+              value={name}
+              minLength="3"
               type="text"
               placeholder="*Nome"
+              onChange={e => setName(e.target.value)}
             />
-            <p>{errors.name?.message}</p>
-        </div>
-        <div className="input_register_cad">
-            <input 
-              {...register('cpf_cnpj')}
-              name='cpf_cnpj'
+          </div>
+          <div className="input_register_cad">
+            <input
+              value={insertMaskCpfCnpj(cpf_cnpj)}
+              maxLength="18"
               type="text"
               placeholder="*CPF/CNPJ"
+              onChange={e => setCpfCpnj(e.target.value)}
             />
-            <p>{errors.cpf_cnpj?.message}</p>
-        </div>
-        
-        <Button value={"Finalizar"}></Button>
-      </form>
+          </div>
+          <div className="input_register_cad">
+            <input
+              value={insertMaskPhone(telephone)}
+              maxLength="15"
+              type="text"
+              placeholder="*Telefone"
+              onChange={e => setTelephone(e.target.value)}
+            />
+          </div>
+          <div className="input_register_cad">
+            <input
+              value={insertMaskCep(cep)}
+              maxLength="9"
+              type="text"
+              placeholder="*CEP"
+              onChange={e => setCep(e.target.value)}
+            />
+          </div>
+          <div className="input_register_cad">
+            <input
+              value={email}
+              type="email"
+              placeholder="*E-mail"
+              onChange={e => setEmail(e.target.value)}
+            />
+          </div>
+          <div className="input_register_cad">
+            <input
+              value={password}
+              type="password"
+              placeholder="*Senha"
+              onChange={e => setPassword(e.target.value)}
+            />
+          </div>
+          <div className="input_register_cad">
+            <input
+              value={password_confirm}
+              type="password"
+              placeholder="*Confirmar senha"
+              onChange={e => setPasswordConfirm(e.target.value)}
+            />
+          </div>
+
+          <Button type={"Submit"} value={"Finalizar"}></Button>
+        </form>
+      </div>
     </div>
   );
 }

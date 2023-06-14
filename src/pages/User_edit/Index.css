@@ -1,0 +1,69 @@
+.header-photo{
+    background-color: white;
+    display: flex;
+    align-items: center;
+    max-width: 100%;
+    padding: 1.5%;
+}
+
+.header-photo img{
+    margin-left: 2%;
+    width: 7%;
+}
+
+.header-photo h3{
+    margin-left: 1.5%;
+    font-size: 2.3vh;
+}
+
+/*Edita usuario*/
+.main-edit-user{
+    background-color: #D9D9D9;
+}
+
+.main-edit-user form{
+    padding: 2%;
+    max-width: 100%;
+}
+
+.title-edit-user{
+    margin-left: 6.5%;
+    font-size: 1.8vw;
+    margin-bottom: 1%;
+}
+
+.back-edit-user {
+    display: flex;
+    max-width: 100%;
+    justify-content: space-evenly;
+}
+
+.back-edit-user div{
+    display: flex;
+    flex-direction: column;
+    max-width: 40%;
+    width: 40%;
+}
+
+.back-edit-user input{
+    font-family: 'Montserrat', sans-serif;
+    max-width: 95%;
+	width: 95%;
+	padding: 2.5%;
+	border: none;
+	outline: 0;
+	border-radius: 10px;
+	font-size: 1.1vw;
+	color:#bbbbbb;
+	margin-bottom: 3%;
+}
+
+.back-edit-user input::placeholder{
+    font-size: 1vw;
+	color: #025939;
+}
+
+.back-edit-user h3{
+    font-weight: 500;
+    font-size: 1.2vw;
+}

@@ -4,20 +4,20 @@
     font-family: 'Montserrat', sans-serif;
     display: flex;
     flex-direction: column;
-    width: 40%;
     margin: auto;
     margin-top: 5%;
+    width: 30%;
 }
 
 .button input{
     background-color: #04D939;
     border: none;
-    color: white;
+    color: rgb(255, 255, 255);
     font-size: 1.3vw;
-    padding: 7%;
     font-weight: 600;
     border-radius: 10px;
     transition: 0.3s;
+    height: 3vw;
 }
 
 .button input:hover{

@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+body{
+    padding: 0;
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+}
+
+header{
+    background-color: #D9D9D9;
+    display: flex;
+    justify-content: space-between;
+    max-width: 100%;
+    padding: 1% 2%;
+    margin-bottom: 5%;
+}
+
+.create-donate{
+    display: flex;
+}
+
+.button-feed{
+    background-color: #59D678;
+    border: none;
+    color: white;
+    font-size: 1.2vw;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+.button-feed:hover{
+    background-color: #51c46e;
+}
+
+.dropbtn {
+    background-color: white;
+    color: #7F7F7F;
+    border-radius: 10px;
+    padding: 16px;
+    font-size: 1.2vw;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+    background-color: #fcfcfc
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+    background-color: rgb(228, 228, 228);
+}
+
+/*Barra de pesquisa*/
+#divBusca {
+    background-color: white;
+    color: #7F7F7F;
+    border-radius: 15px;
+    width: 35%;
+    max-width: 35%;
+    padding: 1.1%;
+    align-items: center;
+}
+
+#txtBusca {
+    float: left;
+    background-color: transparent;
+    padding-left: 1%;
+    font-size: 1.2vw;
+    border: none;
+    outline: none;
+    align-items: center;
+    color:#bbbbbb;
+}
