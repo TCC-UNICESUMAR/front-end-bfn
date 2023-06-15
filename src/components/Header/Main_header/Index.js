@@ -15,18 +15,18 @@ function Header() {
                 <img src={logo} />
             </div>
             <div className="routes">
-                <Link className="link" to={"/minhas_doacoes"}>
+                <Link className="link" to={"/myDonates"}>
                     <p>Minhas doações</p>
                 </Link>
                 <Link className="link" to={"/feed"}>
                     <p>Feed</p>
                 </Link>
-                <Link className="link" to={"/cadastro_doacao"}>
+                <Link className="link" to={"/registerProduct"}>
                     <p>Doar</p>
                 </Link>
             </div>
             <div className="profile">
-                <Link to={"/perfil"}>
+                <Link to={"/profile"}>
                     <img src={profile}/>
                 </Link>
             </div>

@@ -26,7 +26,8 @@ function Login() {
         try {
             const response = await Api.post('api/v1/auth/authenticate', data);
 
-            localStorage.setItem('accessToken', response.data);
+            localStorage.setItem('accessToken',response.data.data.accessToken)
+            localStorage.setItem('refreshToken',response.data.data.refreshToken)
 
             navigate("/feed", { replace: true });
         } catch (err) {
@@ -48,7 +49,7 @@ function Login() {
         <Link to="cadastro_usuario">Cadastre-se</Link>
       </div>
       <div class="login-enter">
-        <form class="form-login">
+        <form class="form-login" onSubmit={login}>
           <h2>Já tenho conta</h2>
           <input
             class="field-login"

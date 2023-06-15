@@ -1,20 +1,12 @@
-import React, { useState } from 'react';
 import './Index.css';
 
-function Product() {
+function Product(props) {
 
-    const [donates, setDonates] = useState([]);
-
-    return (
-        /*{donates.map(donate =>
-            <div className="prod">
-                <img src={ donate.photo } />
+    return ( 
+           <div className="prod">
+                <p>{props.product.name} </p>
+                <p>{props.product.description}</p>
             </div>
-            <p> {donate.title} </p>
-        )};*/
-        <>
-            <h1>Product</h1>
-        </>
     );
 }
 

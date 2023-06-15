@@ -1,5 +1,5 @@
 import { useState } from 'react';
-
+import { useNavigate, useParams } from 'react-router-dom';
 import Header from '../../components/Header/Main_header/Index';
 import './Index.css';
 import Second_header from "../../components/Header/Second_header/Index";
@@ -7,17 +7,18 @@ import Button from "../../components/Forms/Button/Index";
 import { insertMaskPhone } from "../../components/Mask/Mask_phone/Index";
 import { insertMaskCpfCnpj } from '../../components/Mask/Mask_cpf_cnpj/Index';
 import { insertMaskCep } from '../../components/Mask/Mask_cep/Index';
-
+import Api from '../../config/Service/Api'
 
 function User_register() {
   const [name, setName] = useState('');
-  const [cpf_cnpj, setCpfCpnj] = useState('');
-  const [telephone, setTelephone] = useState('');
+  const [cnpjOrCpf, setCnpjOrCpf] = useState('');
+  const [phone, setPhone] = useState('');
   const [cep, setCep] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [password_confirm, setPasswordConfirm] = useState('');
   const accessToken = localStorage.getItem('accessToken');
+  const navigate = useNavigate();
 
   async function new_user(e) {
 
@@ -25,28 +26,21 @@ function User_register() {
 
     const data = {
       name,
-      cpf_cnpj,
-      telephone,
-      cep,
+      cnpjOrCpf,
+      phone,
       email,
-      password,
-      password_confirm
+      password
     };
 
     console.log(data)
 
-    // try {
-    //     await api.post("doacoes", data, {
-    //         headers: {
-    //             Authorization: `Bearer ${accessToken}`
-    //         }
-    //     })
-
-    //     history.push("/doacoes");
-
-    // } catch (err) {
-    //     alert('Prencha todos os campos corretamente!!!');
-    // }
+    try {
+        await Api.post("/api/v1/user/register", data)
+        alert('Sucesso!!!');
+        navigate("/", { replace: true });
+    } catch (err) {
+        alert('Prencha todos os campos corretamente!!!');
+    }
 
   }
 
@@ -70,20 +64,20 @@ function User_register() {
           </div>
           <div className="input_register_cad">
             <input
-              value={insertMaskCpfCnpj(cpf_cnpj)}
+              value={insertMaskCpfCnpj(cnpjOrCpf)}
               maxLength="18"
               type="text"
               placeholder="*CPF/CNPJ"
-              onChange={e => setCpfCpnj(e.target.value)}
+              onChange={e => setCnpjOrCpf(e.target.value)}
             />
           </div>
           <div className="input_register_cad">
             <input
-              value={insertMaskPhone(telephone)}
+              value={insertMaskPhone(phone)}
               maxLength="15"
               type="text"
               placeholder="*Telefone"
-              onChange={e => setTelephone(e.target.value)}
+              onChange={e => setPhone(e.target.value)}
             />
           </div>
           <div className="input_register_cad">

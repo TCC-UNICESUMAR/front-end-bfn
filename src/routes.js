@@ -10,9 +10,9 @@ export default function ExactRoutes() {
         <Router>
             <Routes>
                 <Route path='/' Component={Login} />
-                <Route path='/cadastro_usuario' Component={User_register} />
-                <Route path='/cadastro_doacao' Component={Create_donate} />
-                <Route path='/edita_usuario' Component={User_edit} />
+                <Route path='/registerUser/:idUsuario' Component={User_register} />
+                <Route path='/registerProduct' Component={Create_donate} />
+                <Route path='/userEdit' Component={User_edit} />
                 <Route path='/feed' Component={Feed} />
             </Routes>
         </Router>

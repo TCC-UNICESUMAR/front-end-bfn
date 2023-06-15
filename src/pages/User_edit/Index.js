@@ -1,55 +1,82 @@
 import { useState } from "react";
-
+import { useNavigate } from 'react-router-dom';
 import Header from "../../components/Header/Main_header/Index";
-
+import { useEffect } from 'react';
 import "./Index.css"
 import photo_user from "../../assets/image/foto-user.png"
 import Button from "../../components/Forms/Button/Index";
 import { insertMaskCep } from "../../components/Mask/Mask_cep/Index";
 import { insertMaskPhone } from "../../components/Mask/Mask_phone/Index";
+import Api from "../../config/Service/Api";
 
 function User_edit() {
     const [name, setName] = useState('');
-    const [cpf_cnpj, setCpfCnpj] = useState('');
+    const [id, setId] = useState('');
+    const [cnpjOrCpf, setCnpjOrCpf] = useState('');
     const [email, setEmail] = useState('');
     const [cep, setCep] = useState('');
-    const [telephone, setTelephone] = useState('');
+    const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
-    const nomeUser = localStorage.getItem('nome');
+    const navigate = useNavigate();
     const accessToken = localStorage.getItem('accessToken');
 
-    async function updateUser(e){
+
+    async function getUser() {
+        try {
+            const response = await Api.get(`/api/v1/user/getUserBySession`, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                }
+            })
+            console.log(response.data.data);
+            setName(response.data.data.name)
+            setCnpjOrCpf(response.data.data.cpfOrCnpj)
+            setEmail(response.data.data.email)
+            setPhone(response.data.data.phone)
+            setId(response.data.data.id)
+        } catch (error) {
+            alert('Error Get User By Session! Try again!');
+        }
+    }
+
+    async function updateUser(e) {
         e.preventDefault();
 
         const data = {
             name,
-            cpf_cnpj,
+            cnpjOrCpf,
             cep,
-            telephone,
+            phone,
             email,
             password
         }
-    
-        // try {
-        //     await api.post("auth/singup", data ,{
-        //         headers: {
-        //             Authorization: `Bearer ${accessToken}`
-        //         }
-        //     });
 
-        //     history.push('/')
-        // } catch (err) {
-        //     alert('Preencha todos os campos e tente novamente!!!');
-        // }
+        try {
+            const response = await Api.put(`/api/v1/user/editProfile/${id}`, data, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                }
+            });
+
+            console.log(response.data)
+
+        } catch (err) {
+            alert('Error Edit User! Try again!');
+            
+        }
     };
 
+    useEffect(() => {
+        getUser();
+    }, [])
 
-    return(
+
+    return (
         <div className="main-edit-user">
             <Header />
             <div className="header-photo">
                 <img src={photo_user} />
-                <h3>Hello ...</h3>
+                <h3>Olá {name}</h3>
             </div>
             <form onSubmit={updateUser}>
                 <h2 className="title-edit-user">Seus dados</h2>
@@ -64,9 +91,9 @@ function User_edit() {
                         />
                         <input
                             type="text"
-                            value={cpf_cnpj}
+                            value={cnpjOrCpf}
                             placeholder="*CPF/CNPJ"
-                            onChange={e => setCpfCnpj(e.target.value)}
+                            onChange={e => setCnpjOrCpf(e.target.value)}
                         />
                         <input
                             type="text"
@@ -78,9 +105,9 @@ function User_edit() {
                         <input
                             type="text"
                             maxLength="15"
-                            value={insertMaskPhone(telephone)}
+                            value={insertMaskPhone(phone)}
                             placeholder="*Telefone"
-                            onChange={e => setTelephone(e.target.value)}
+                            onChange={e => setPhone(e.target.value)}
                         />
                     </div>
                     <div>
