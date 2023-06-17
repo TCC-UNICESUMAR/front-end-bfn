@@ -1,7 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
-body{
-    background-color: bisque;
-}
 
 .modal{
     width: 100%;
@@ -39,4 +36,5 @@ body{
     padding: 2%;
     border-radius: 5px;
     font-size: 1.2vw;
+    display: block;
 }

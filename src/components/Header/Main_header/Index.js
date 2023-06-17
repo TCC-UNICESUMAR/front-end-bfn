@@ -26,7 +26,7 @@ function Header() {
                 </Link>
             </div>
             <div className="profile">
-                <Link to={"/profile"}>
+                <Link to={"/userEdit"}>
                     <img src={profile}/>
                 </Link>
             </div>

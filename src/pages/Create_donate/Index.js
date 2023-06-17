@@ -14,7 +14,7 @@ import Input_img from '../../components/Forms/Input_img/Index';
 import { insertMaskCep } from '../../components/Mask/Mask_cep/Index';
 import './Index.css'
 import Select from '../../components/Forms/Select/Index';
-import Modal from '../../components/Modal/Index';
+import Modal_info from '../../components/Modal/Modal_info/Index';
 
 
 ReactModal.setAppElement('#root');
@@ -50,7 +50,6 @@ function Create_donate() {
     const [name, setName] = useState('');
     const [quantity, setQuantity] = useState('');
     const [description, setDescription] = useState('');
-    const [address, setAdress] = useState('');
     const [category, setCategory] = useState('');
     const [imageProductKey, setImageProductKey] = useState('');
     const [streetName, setStreetName] = useState('');
@@ -63,6 +62,22 @@ function Create_donate() {
     const { setFocus } = useForm();
     const accessToken = localStorage.getItem('accessToken');
 
+    const data = {
+        name,
+        description,
+        quantity,
+        category,
+        imageProductKey,
+        addressDto:
+        {
+            streetName,
+            streetNumber,
+            uf,
+            zipCode,
+            complement
+        }
+    };
+
     async function loadCategories() {
         try {
             const response = await Api.get(`api/v1/product/findAllCategories`, {
@@ -70,7 +85,6 @@ function Create_donate() {
                     Authorization: `Bearer ${accessToken}`
                 }
             })
-            console.log(response.data.data)
             setCategories(response.data.data);
 
         } catch (error) {
@@ -93,21 +107,16 @@ function Create_donate() {
 
         e.preventDefault();
 
-        const data = {
-            name,
-            description,
-            quantity,
-            category,
-            imageProductKey,
-            addressDto:
-            {
-                streetName,
-                streetNumber,
-                uf,
-                zipCode,
-                complement
-            }
-        };
+        data.name = name;
+        data.description = description;
+        data.quantity = quantity;
+        data.category = category;
+        data.imageProductKey = imageProductKey
+        data.addressDto.streetName = streetName;
+        data.addressDto.streetNumber = streetNumber;
+        data.addressDto.uf = uf;
+        data.addressDto.zipCode = zipCode;
+        data.addressDto.complement = complement;
 
         try {
             await Api.post("/api/v1/product", data, {
@@ -116,12 +125,10 @@ function Create_donate() {
                 }
             })
 
-            navigate("/feed", { replace: true });
-
         } catch (err) {
             alert('Prencha todos os campos corretamente!!!');
         }
-
+        
     }
 
     useEffect(() => {
@@ -211,12 +218,12 @@ function Create_donate() {
                         onRequestClose={handleCloseModal}
                         style={customModal}
                     >
-                        <Modal
+                        <Modal_info
+                            data={data}
                             background={"#04D939"}
                             title={"SUCESSO"}
                             p={"Usuário salvo com sucesso"}
-                            onClick={handleCloseModal}
-                            btn1={"OK"}
+                            btn={"OK"}
                         />
                     </ReactModal>
                 </form>
