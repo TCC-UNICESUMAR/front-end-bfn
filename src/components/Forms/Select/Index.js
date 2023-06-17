@@ -1,4 +1,4 @@
-
+import './Index.css'
 
 
 function Select(props) {
@@ -11,10 +11,15 @@ function Select(props) {
 
     return (
         <select className='select-form' name="idCategory" id="idCategory">
-        <option className='option-form' value="0">Selecione uma opção</option>  
+        <option className='option-form' value="0">Selecione uma categoria</option>  
         {categories.map(category => (<option key={category.categoryId}> {category.categoryName} </option>))}
         </select>
     );
 }
 
 export default Select;
+
+//<select class='select-form' name="idCategory" id="idCategory" value={category}>
+  //       <option className='option-form' value="0">*Selecione uma categoria</option>
+    //     {categories.map(category => (<option key={category.categoryId}> {category.categoryName} </option>))}
+    // </select>

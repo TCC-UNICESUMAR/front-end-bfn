@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import Api from '../../config/Service/Api'
+import ReactModal from 'react-modal';
 import { useEffect } from 'react';
+
+import Api from '../../config/Service/Api'
+
 import Button from '../../components/Forms/Button/Index';
 import Header from '../../components/Header/Main_header/Index';
 import Second_header from '../../components/Header/Second_header/Index';
@@ -11,9 +14,38 @@ import Input_img from '../../components/Forms/Input_img/Index';
 import { insertMaskCep } from '../../components/Mask/Mask_cep/Index';
 import './Index.css'
 import Select from '../../components/Forms/Select/Index';
+import Modal from '../../components/Modal/Index';
+
+
+ReactModal.setAppElement('#root');
 
 function Create_donate() {
 
+    //MODAL
+    const [isOpen, setIsOpen] = useState(false);
+
+    function handleOpenModal() {
+        setIsOpen(true);
+    }
+
+    function handleCloseModal() {
+        setIsOpen(false);
+    }
+
+    const customModal = {
+        content: {
+            backgroundColor: 'transparent',
+            padding: 0,
+            width: '30%',
+            height: '15vw',
+            margin: 'auto',
+            display: 'flex',
+            borderRadius: '10px',
+            border: 'none'
+        }
+    }
+
+    //CREATE DONATE
     const [categories, setCategories] = useState([]);
     const [name, setName] = useState('');
     const [quantity, setQuantity] = useState('');
@@ -123,6 +155,11 @@ function Create_donate() {
                         placeholder="*Quantidade"
                         onChange={e => setQuantity(e.target.value)}
                     />
+                    <select className='select-form' name="idCategory" id="idCategory" value={category}
+                        onChange={e => setCategory(e.target.value)}>
+                        <option className='option-form' value="0">Selecione uma categoria</option>
+                        {categories.map(category => (<option key={category.categoryId}> {category.categoryName} </option>))}
+                    </select>
                     <div className='admin-inputs'>
                         <Input_img legend={"Subir foto"}
                             value={imageProductKey}
@@ -162,14 +199,26 @@ function Create_donate() {
                                 placeholder="*Complemento"
                                 onChange={e => setComplement(e.target.value)}
                             />
-                            <select className='select-form' name="idCategory" id="idCategory" value={category}
-                                onChange={e => setCategory(e.target.value)}>
-                                <option className='option-form' value="0">Selecione uma categoria</option>
-                                {categories.map(category => (<option key={category.categoryId}> {category.categoryName} </option>))}
-                            </select>
                         </div>
                     </div>
-                    <Button type={"submit"} value={"Publicar"} />
+                    <Button
+                        type={"submit"}
+                        value={"Publicar"}
+                        onClick={handleOpenModal}
+                    />
+                    <ReactModal
+                        isOpen={isOpen}
+                        onRequestClose={handleCloseModal}
+                        style={customModal}
+                    >
+                        <Modal
+                            background={"#04D939"}
+                            title={"SUCESSO"}
+                            p={"Usuário salvo com sucesso"}
+                            onClick={handleCloseModal}
+                            btn1={"OK"}
+                        />
+                    </ReactModal>
                 </form>
             </div>
         </div>

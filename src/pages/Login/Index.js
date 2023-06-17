@@ -24,7 +24,7 @@ function Login() {
         };
 
         try {
-            const response = await Api.post('api/v1/auth/authenticate', data);
+            const response = await Api.post('api/v1/auth/authenticate', data);  
 
             localStorage.setItem('accessToken',response.data.data.accessToken)
             localStorage.setItem('refreshToken',response.data.data.refreshToken)
@@ -46,7 +46,7 @@ function Login() {
     <div class="login-main">
       <div class="login-register">
         <h2>Criar uma nova conta</h2>
-        <Link to="cadastro_usuario">Cadastre-se</Link>
+        <Link to="/registerUser/:idUsuario">Cadastre-se</Link>
       </div>
       <div class="login-enter">
         <form class="form-login" onSubmit={login}>
