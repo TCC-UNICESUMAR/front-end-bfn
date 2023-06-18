@@ -13,49 +13,28 @@ function Feed() {
     const [categories, setCategories] = useState([]);
     const [products, setProducts] = useState([]);
     const accessToken = localStorage.getItem('accessToken');
+    const [page, setPage] = useState(1);
     const navigate = useNavigate();
-
-    async function editProduct(id) {
-        try {
-            navigate(`/editProduct/${id}`)
-        } catch (error) {
-            alert('Edit failed! Try again.');
-        }
-    }
-
-    async function deleteProduct(id) {
-        var check = window.confirm("Deseja excluir o item selecionado?");
-
-        if (check === false) return
-
-        try {
-            await Api.delete(`/api/v1/product/${id}`, {
-                headers: {
-                    Authorization: `Bearer ${accessToken}`
-                }
-            })
-
-            setProducts(products.filter(product => product.id !== id))
-        } catch (err) {
-            alert('Delete failed! Try again.');
-        }
-    }
 
     async function fetchMoreProducts() {
         const response = await Api.get('/api/v1/product', {
             headers: {
                 Authorization: `Bearer ${accessToken}`
+            },
+            params: {
+                size: 6,
+                limit: 4
             }
-
         });
-        setProducts(response.data.data.content)
+        setProducts([...products, ...response.data.data.content])
+        setPage(page + 1);
     }
 
     useEffect(() => {
         fetchMoreProducts();
     }, [])
 
-    
+
     async function loadCategories() {
         try {
             const response = await Api.get(`api/v1/product/findAllCategories`, {
@@ -104,6 +83,14 @@ function Feed() {
             </header>
 
             <Catalog products={products} />
+            {products.length <= 4 ? null :  <Button
+                type={"button"}
+                value={"Carregar Mais"}
+                onClick={fetchMoreProducts}
+            />}
+           
+
+
 
         </div>
     );

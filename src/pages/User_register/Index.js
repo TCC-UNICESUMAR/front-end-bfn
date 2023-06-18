@@ -8,6 +8,10 @@ import { insertMaskPhone } from "../../components/Mask/Mask_phone/Index";
 import { insertMaskCpfCnpj } from '../../components/Mask/Mask_cpf_cnpj/Index';
 import { insertMaskCep } from '../../components/Mask/Mask_cep/Index';
 import Api from '../../config/Service/Api'
+import ReactModal from 'react-modal';
+import Modal_info from '../../components/Modal/Modal_info/Index';
+ReactModal.setAppElement('#root');
+
 
 function User_register() {
   const [name, setName] = useState('');
@@ -19,27 +23,53 @@ function User_register() {
   const [password_confirm, setPasswordConfirm] = useState('');
   const accessToken = localStorage.getItem('accessToken');
   const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(false);
+
+  const data = {
+    name,
+    cnpjOrCpf,
+    phone,
+    email,
+    password
+  };
+
+  function handleOpenModal() {
+    setIsOpen(true);
+  }
+
+  function handleCloseModal() {
+    setIsOpen(false);
+  }
+
+  const customModal = {
+    content: {
+        backgroundColor: 'transparent',
+        padding: 0,
+        width: '30%',
+        height: '15vw',
+        margin: 'auto',
+        display: 'flex',
+        borderRadius: '10px',
+        border: 'none'
+    }
+}
 
   async function new_user(e) {
 
     e.preventDefault();
 
-    const data = {
-      name,
-      cnpjOrCpf,
-      phone,
-      email,
-      password
-    };
+    data.name = name
+    data.cnpjOrCpf = cnpjOrCpf
+    data.email = email
+    data.password = password
+    data.phone = phone
 
     console.log(data)
 
     try {
-        await Api.post("/api/v1/user/register", data)
-        alert('Sucesso!!!');
-        navigate("/", { replace: true });
+      await Api.post("/api/v1/user/register", data)
     } catch (err) {
-        alert('Prencha todos os campos corretamente!!!');
+      alert('Prencha todos os campos corretamente!!!');
     }
 
   }
@@ -113,8 +143,25 @@ function User_register() {
               onChange={e => setPasswordConfirm(e.target.value)}
             />
           </div>
-
-          <Button type={"Submit"} value={"Finalizar"}></Button>
+          <Button
+            type={"submit"}
+            value={"Finalizar"}
+            onClick={handleOpenModal}
+          />
+          <ReactModal
+            isOpen={isOpen}
+            onRequestClose={handleCloseModal}
+            style={customModal}
+          >
+            <Modal_info
+              data={data}
+              background={"#04D939"}
+              title={"SUCESSO"}
+              p={"Cadastro realizo com sucesso"}
+              btn={"OK"}
+              redirectTo={"/login"}
+            />
+          </ReactModal>
         </form>
       </div>
     </div>

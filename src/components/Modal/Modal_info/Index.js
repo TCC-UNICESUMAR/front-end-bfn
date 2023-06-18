@@ -2,11 +2,11 @@ import './Index.css';
 
 import { useNavigate } from 'react-router-dom';
 
-function Modal_info({ background, title, p, btn }) {
+function Modal_info({ background, title, p, btn, redirectTo }) {
 
     const navigate = useNavigate();
     function redirect(){
-        navigate("/feed", { replace: true });
+        navigate(redirectTo, { replace: true });
     }
 
     return (

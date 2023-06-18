@@ -8,31 +8,32 @@ import { useState, useEffect } from 'react'
 
 function User_donates() {
     const [products, setProducts] = useState([]);
-    const [id, setId] = useState('');
-
     const accessToken = localStorage.getItem('accessToken');
 
-    async function getUser() {
+
+
+    async function fetchMoreProducts() {
         try {
-            const response = await Api.get(`/api/v1/user/getUserBySession`, {
+            const responseUser = await Api.get(`/api/v1/user/getUserBySession`, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`
                 }
-            })
-            setId(response.data.id);
+            });
+
+            const id = responseUser.data.data.id;
+
+            const response = await Api.get(`/api/v1/product/byUser/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                }
+    
+            });
+            
+            setProducts(response.data.data.content)
+            
         } catch (error) {
-            alert('Error Get User By Session! Try again!');
+            alert('Error Get Products By User! Try again!');
         }
-    }
-
-    async function fetchMoreProducts() {
-        const response = await Api.get(`/api/v1/product/byUser/1`, {
-            headers: {
-                Authorization: `Bearer ${accessToken}`
-            }
-
-        });
-        setProducts(response.data.data.content)
     }
 
     useEffect(() => {
@@ -43,7 +44,7 @@ function User_donates() {
         <div>
             <Header />
             <Second_header title={"Suas doações publicadas"}/>
-            <Catalog products={products}/>
+            <Catalog products={products} isEdit={true}/>
         </div>
     );
 }

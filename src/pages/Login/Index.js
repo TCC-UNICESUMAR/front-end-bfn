@@ -46,7 +46,7 @@ function Login() {
     <div class="login-main">
       <div class="login-register">
         <h2>Criar uma nova conta</h2>
-        <Link to="/registerUser/:idUsuario">Cadastre-se</Link>
+        <Link to="/registerUser">Cadastre-se</Link>
       </div>
       <div class="login-enter">
         <form class="form-login" onSubmit={login}>

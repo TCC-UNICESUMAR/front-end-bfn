@@ -17,6 +17,7 @@ function User_edit() {
     const [cep, setCep] = useState('');
     const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
+    const [imgUrl, setIgmUrl] = useState('');
     const navigate = useNavigate();
     const accessToken = localStorage.getItem('accessToken');
 
@@ -28,12 +29,24 @@ function User_edit() {
                     Authorization: `Bearer ${accessToken}`
                 }
             })
+
+        
             console.log(response.data.data);
             setName(response.data.data.name)
             setCnpjOrCpf(response.data.data.cpfOrCnpj)
             setEmail(response.data.data.email)
             setPhone(response.data.data.phone)
-            setId(response.data.data.id)
+            const idUser = response.data.data.id;
+            setId(idUser);
+
+            const responseImg = await Api.get(`/api/v1/s3/getObjectUserProfile/${idUser}`, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                }
+            })
+    
+            setIgmUrl(responseImg.data);
+            
         } catch (error) {
             alert('Error Get User By Session! Try again!');
         }
@@ -58,7 +71,6 @@ function User_edit() {
                 }
             });
 
-            console.log(response.data)
 
         } catch (err) {
             alert('Error Edit User! Try again!');
@@ -70,12 +82,11 @@ function User_edit() {
         getUser();
     }, [])
 
-
     return (
         <div className="main-edit-user">
             <Header />
             <div className="header-photo">
-                <img src={photo_user} />
+                <img src={imgUrl} />
                 <h3>Olá {name}</h3>
             </div>
             <form onSubmit={updateUser}>

@@ -12,14 +12,15 @@ import Second_header from '../../components/Header/Second_header/Index';
 
 import Input_img from '../../components/Forms/Input_img/Index';
 import { insertMaskCep } from '../../components/Mask/Mask_cep/Index';
-import './Index.css'
 import Select from '../../components/Forms/Select/Index';
 import Modal_info from '../../components/Modal/Modal_info/Index';
 
 
 ReactModal.setAppElement('#root');
 
-function Create_donate() {
+function Donate_edit() {
+
+    const { productId } = useParams();
 
     //MODAL
     const [isOpen, setIsOpen] = useState(false);
@@ -51,7 +52,7 @@ function Create_donate() {
     const [quantity, setQuantity] = useState('');
     const [description, setDescription] = useState('');
     const [category, setCategory] = useState('');
-    const [imageProductKey, setImageProductKey] = useState('');
+    const [imageProductKey, setImageProductKey] = useState([]);
     const [streetName, setStreetName] = useState('');
     const [city, setCity] = useState('');
     const [streetNumber, setStreetNumber] = useState('');
@@ -93,6 +94,30 @@ function Create_donate() {
         }
     }
 
+    async function getProductById() {
+        try {
+            const response = await Api.get(`api/v1/product/${productId}`, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                }
+            })
+            console.log(response.data.data)
+            setName(response.data.data.name);
+            setDescription(response.data.data.description);
+            setQuantity(response.data.data.quantity);
+            setCategory(response.data.data.category.categoryName);
+            setStreetName(response.data.data.address.streetName);
+            setStreetNumber(response.data.data.address.streetNumber);
+            setUf(response.data.data.address.uf);
+            setZipCode(response.data.data.address.zipCode);
+            setComplement(response.data.data.address.complement);
+            setCity(response.data.data.address.city);
+
+        } catch (error) {
+            alert('Error recovering category name! Try again!');
+        }
+    }
+
     const checkCEP = (e) => {
         const cep = e.target.value.replace(/\D/g, '');
         console.log(cep);
@@ -104,7 +129,7 @@ function Create_donate() {
         });
     }
 
-    async function newDonate(e) {
+    async function updateDonation(e) {
 
         e.preventDefault();
 
@@ -114,13 +139,13 @@ function Create_donate() {
         data.category = category;
         data.imageProductKey = imageProductKey
         data.addressDto.streetName = streetName;
-        data.addressDto.streetNumber = complement;
+        data.addressDto.streetNumber = streetNumber;
         data.addressDto.uf = uf;
         data.addressDto.zipCode = zipCode;
-        data.addressDto.city = city;
+        data.addressDto.complement = complement;
 
         try {
-            await Api.post("/api/v1/product", data, {
+            await Api.put(`/api/v1/product/${productId}`, data, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`
                 }
@@ -129,8 +154,12 @@ function Create_donate() {
         } catch (err) {
             alert('Prencha todos os campos corretamente!!!');
         }
-        
+
     }
+
+    useEffect(() => {
+        getProductById();
+    }, [])
 
     useEffect(() => {
         loadCategories();
@@ -139,9 +168,9 @@ function Create_donate() {
     return (
         <div>
             <Header />
-            <Second_header title={"Inicie uma nova história"} />
+            <Second_header title={"Edite Sua Doação"} />
             <div className='back-create-donate'>
-                <form className='form-create-donate' onSubmit={newDonate}>
+                <form className='form-create-donate' onSubmit={updateDonation}>
                     <h2>Dados da doação</h2>
                     <input
                         type="text"
@@ -211,7 +240,7 @@ function Create_donate() {
                     </div>
                     <Button
                         type={"submit"}
-                        value={"Publicar"}
+                        value={"Salvar Alteracoes"}
                         onClick={handleOpenModal}
                     />
                     <ReactModal
@@ -223,9 +252,9 @@ function Create_donate() {
                             data={data}
                             background={"#04D939"}
                             title={"SUCESSO"}
-                            p={"Doacao salva com sucesso"}
+                            p={"Alteracoes salvas com sucesso"}
                             btn={"OK"}
-                            redirectTo={"/feed"}
+                            redirectTo={"/myDonates"}
                         />
                     </ReactModal>
                 </form>
@@ -235,4 +264,4 @@ function Create_donate() {
 }
 
 
-export default Create_donate;
+export default Donate_edit;
