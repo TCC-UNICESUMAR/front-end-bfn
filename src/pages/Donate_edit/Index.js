@@ -242,6 +242,7 @@ function Donate_edit() {
                         type={"submit"}
                         value={"Salvar Alteracoes"}
                         onClick={handleOpenModal}
+                        background={"#04D939"}
                     />
                     <ReactModal
                         isOpen={isOpen}

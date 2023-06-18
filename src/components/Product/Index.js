@@ -43,28 +43,29 @@ function Product(props) {
             <div>
                 <div className='product-footer'>
                     <h3>Doado por {props.product.user.name}</h3>
+                    <div>
+                        {props.isEdit === true ?
+                            <Button
+                                type={"button"}
+                                value={"Editar"}
+                                onClick={() => editProduct(props.product.productId)}
+                                background={"#048CD9"}
+                            />
+                            : null
+                        }
+
+                        {props.isEdit === true ?
+                            <Button
+                                type={"button"}
+                                value={"Excluir"}
+                                onClick={() => deleteProduct(props.product.productId)}
+                                background={"#D90404"}
+                            />
+                            : null
+                        }
+                    </div>
                 </div>
             </div>
-
-            {props.isEdit === true ?
-              <Button
-                type={"button"}
-                value={"Editar Item"}
-                onClick={() => editProduct(props.product.productId)}
-              />
-                : null
-            }
-
-           
-
-            {props.isEdit === true ?
-             <Button
-                type={"button"}
-                value={"Excluir Item"}
-                onClick={() => deleteProduct(props.product.productId)}
-              />
-                : null
-            }
 
 
         </div>

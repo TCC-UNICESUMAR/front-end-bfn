@@ -86,7 +86,9 @@ function User_edit() {
         <div className="main-edit-user">
             <Header />
             <div className="header-photo">
-                <img src={imgUrl} />
+                <div className="back-photo">
+                    <img src={imgUrl} />
+                </div>
                 <h3>Olá {name}</h3>
             </div>
             <form onSubmit={updateUser}>
@@ -137,7 +139,7 @@ function User_edit() {
                         />
                     </div>
                 </div>
-                <Button type={"submit"} value={"Salvar alterações"} />
+                <Button type={"submit"} value={"Salvar alterações"} background={"#04D939"}/>
             </form>
         </div>
     );

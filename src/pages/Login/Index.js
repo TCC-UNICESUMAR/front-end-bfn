@@ -69,7 +69,11 @@ function Login() {
             <input type="checkbox" />
             <label>Lembrar senha</label>
           </div>
-          <Button type={"submit"} value={"Entrar"} />
+          <Button 
+            type={"submit"}
+            value={"Entrar"}
+            background={"#04D939"}
+          />
         </form>
       </div>
     </div>

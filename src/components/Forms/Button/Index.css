@@ -10,7 +10,6 @@
 }
 
 .button input{
-    background-color: #04D939;
     border: none;
     color: rgb(255, 255, 255);
     font-size: 1.3vw;
@@ -18,8 +17,4 @@
     border-radius: 10px;
     transition: 0.3s;
     height: 3vw;
-}
-
-.button input:hover{
-    background-color: #04be33;
 }

@@ -147,6 +147,7 @@ function User_register() {
             type={"submit"}
             value={"Finalizar"}
             onClick={handleOpenModal}
+            background={"#04D939"}
           />
           <ReactModal
             isOpen={isOpen}

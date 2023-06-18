@@ -213,6 +213,7 @@ function Create_donate() {
                         type={"submit"}
                         value={"Publicar"}
                         onClick={handleOpenModal}
+                        background={"#04D939"}
                     />
                     <ReactModal
                         isOpen={isOpen}

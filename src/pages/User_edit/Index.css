@@ -6,9 +6,19 @@
     padding: 1.5%;
 }
 
-.header-photo img{
-    margin-left: 2%;
+.back-photo{
     width: 7%;
+    display: flex;
+    max-height: 12.5vh;
+    border: none;
+}
+
+.header-photo img{
+    margin: auto;
+    width: 100%;
+    background-color: #bbbbbb;
+    height: 12.5vh;
+    border-radius: 80px;
 }
 
 .header-photo h3{

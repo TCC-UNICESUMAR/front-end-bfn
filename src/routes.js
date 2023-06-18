@@ -11,7 +11,7 @@ export default function ExactRoutes() {
     return (
         <Router>
             <Routes>
-                <Route path='/login' Component={Login} />
+                <Route path='/' Component={Login} />
                 <Route path='/registerUser' Component={User_register} />
                 <Route path='/registerProduct' Component={Create_donate} />
                 <Route path='/userEdit' Component={User_edit} />
